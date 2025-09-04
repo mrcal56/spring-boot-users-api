@@ -34,13 +34,13 @@ public class UserController {
         return ResponseEntity.created(location).body(created);
     }
 
-    // ✅ GET por id
+    // GET por id
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    // ✅ GET listado con paginación básica ?page=0&size=10
+    // GET listado con paginación básica ?page=0&size=10
     @GetMapping
     public ResponseEntity<PageResponse<UserResponse>> list(
             @RequestParam(defaultValue = "0") int page,
