@@ -1,7 +1,9 @@
 package com.example.springbootAPI.User;
 
 import com.example.springbootAPI.User.dto.UserCreateRequest;
+import com.example.springbootAPI.User.dto.UserPatchRequest;
 import com.example.springbootAPI.User.dto.UserResponse;
+import com.example.springbootAPI.User.dto.UserUpdateRequest;
 import com.example.springbootAPI.common.PageResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +49,27 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(service.list(page, size));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponse> update(
+            @PathVariable Long id,
+            @Valid @RequestBody UserUpdateRequest request
+    ) {
+        return ResponseEntity.ok(service.update(id, request));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserResponse> patch(
+            @PathVariable Long id,
+            @Valid @RequestBody UserPatchRequest request
+    ) {
+        return ResponseEntity.ok(service.patch(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build(); // 204
     }
 }
